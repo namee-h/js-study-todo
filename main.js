@@ -2,6 +2,7 @@ let userInput = document.getElementById("user-input");
 let addButton = document.getElementById("add-button-area");
 let tabs = document.querySelectorAll(".tab-items div");
 let underLine = document.getElementById("under-line");
+let deleteAll = document.getElementById("delete-all");
 let isComplete = false;
 let mode = "all";
 let taskList = [];
@@ -19,6 +20,14 @@ userInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     e.preventDefault();
     document.getElementById("add-button-area").click();
+  }
+});
+deleteAll.addEventListener("click", (e) => {
+  if (taskList.length !== 0 && mode === "all") {
+    taskList = [];
+    list = [];
+    filterList = [];
+    render();
   }
 });
 
