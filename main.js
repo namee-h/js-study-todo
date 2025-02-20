@@ -28,6 +28,8 @@ deleteAll.addEventListener("click", (e) => {
     list = [];
     filterList = [];
     render();
+  } else {
+    return alert("삭제할 리스트가 없습니다.");
   }
 });
 
@@ -59,9 +61,10 @@ function render() {
         <li class="todo-item task-done">
                     <span>
                         <input onclick="toggleDone('${list[i].id}')" type="checkbox">
-                        <label>${list[i].content}</label>
+                        <label id="label-${list[i].id}">${list[i].content}</label>
                     </span>
                     <span>
+                        <i class="fa-solid fa-pen-to-square" onclick="editTask('${list[i].id}')"></i>
                         <i onclick="deleteTask('${list[i].id}')" class="fa-solid fa-trash-can"></i>
                     </span>
                 </li>
@@ -71,9 +74,10 @@ function render() {
           <li class="todo-item">
                     <span>
                         <input onclick="toggleDone('${list[i].id}')" type="checkbox">
-                        <label>${list[i].content}</label>
+                        <label id="label-${list[i].id}">${list[i].content}</label>
                     </span>
                     <span>
+                        <i class="fa-solid fa-pen-to-square" onclick="editTask('${list[i].id}')"></i>
                         <i onclick="deleteTask('${list[i].id}')" class="fa-solid fa-trash-can"></i>
                     </span>
                 </li>
@@ -100,6 +104,53 @@ function deleteTask(id) {
     }
   }
   filter();
+}
+function editTask(id) {
+  let taskItem = taskList.find((task) => task.id === id);
+  if (!taskItem || taskItem.isComplete) return;
+
+  // 해당 id의 label 요소 찾기
+  let labelElement = document.getElementById(`label-${id}`);
+  if (!labelElement) return;
+
+  // 인풋 요소 생성
+  let inputElement = document.createElement("input");
+  inputElement.type = "text";
+  inputElement.className = "input_style";
+  inputElement.value = taskItem.content;
+
+  // 기존 label 숨기기
+  labelElement.style.display = "none";
+
+  // label 뒤에 인풋 추가
+  labelElement.parentNode.appendChild(inputElement);
+
+  // 인풋에 포커스
+  inputElement.focus();
+
+  // Enter 키 또는 blur 이벤트로 수정 완료 처리
+  inputElement.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      updateTodo(id, inputElement.value);
+    }
+  });
+  //   blur이벤트는 포커스를 잃을때 발생함 다른 곳 클릭하거나 탭키를 사용했을때
+  inputElement.addEventListener("blur", () => {
+    updateTodo(id, inputElement.value);
+  });
+}
+
+function updateTodo(id, newContent) {
+  if (!newContent.trim()) {
+    alert("할 일을 입력해주세요!");
+    return;
+  }
+
+  taskList = taskList.map((task) =>
+    task.id === id ? { ...task, content: newContent } : task
+  );
+
+  render();
 }
 
 function filter(e) {

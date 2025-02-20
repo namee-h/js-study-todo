@@ -132,9 +132,11 @@ ul{
   }
   .todo-item label{
     font-size: 1.5em;
+    
   }
   .todo-item i{
     cursor: pointer;
+    padding: 5px;
   }
   .todo-item i:hover{
     color: red;
@@ -159,9 +161,27 @@ ul{
     margin-right: 1rem;
     background-color: #b5b4b4;
   }
-  
+  .input_style{
+    outline: none;
+    font-size: 1.3em;
+    border: 1px solid white;
+    border-radius: 1em;
+    padding: 1.5px 10px;
+    background: linear-gradient(to right,#ffce92, #ffacac) ;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 100px;
+  }
   @media (max-width:991px) {
     #add-button-area>span{
         display: none;
+    }
+    #delete-all>span{
+        display: none;
+    }
+    .tab-items>div{
+        padding: 1rem 0.5rem;
+    }
+    #under-line{
+        width: 56px;
     }
   }
