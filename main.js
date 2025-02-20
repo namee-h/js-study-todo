@@ -23,7 +23,7 @@ userInput.addEventListener("keypress", function (e) {
   }
 });
 deleteAll.addEventListener("click", (e) => {
-  if (taskList.length !== 0 && mode === "all") {
+  if (taskList.length !== 0) {
     taskList = [];
     list = [];
     filterList = [];
