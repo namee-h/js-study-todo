@@ -108,7 +108,7 @@ function deleteTask(id) {
 function editTask(id) {
   let taskItem = taskList.find((task) => task.id === id);
   if (!taskItem || taskItem.isComplete)
-    return alert("수정할 수 없습니다. 체크를 해제해 주세요.");
+    return alert("수정할 수 없습니다. 체크를 해제해주세요.");
 
   // 해당 id의 label 요소 찾기
   let labelElement = document.getElementById(`label-${id}`);
